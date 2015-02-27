@@ -29,14 +29,15 @@ var Users= require("gitlb-yaac/users");
 //** Create new gitlab client
 var gUsers = new Users({
   url:   'http://example.com',
-  token: 'abcdefghij123456'
+  token: 'abcdefghij123456',
+  admin: true
 });
 
 /** List Users
 * params {Object} optn Option
 * params { Function} callback Callback
 */
-gUsers.all(opts, function(err, result){
+gUsers.find(opts, function(err, response, results){
   if(err){
     //handle error
   }else{
@@ -44,7 +45,21 @@ gUsers.all(opts, function(err, result){
   }
 });
 
+// find all users
+gUsers.find( function(err,response, results){})
+...
 
+//search for users by email or username with: /users?search=John
+gUsers.find("john", function(err, response,results){ });
+
+...
+//find user by id
+gUsers.find(4, function(err, response,result){ 
+	if( response.statusCode !== 404 ){
+		console.log("user found: ", result);
+	}
+}
+});
 
 ```
 
