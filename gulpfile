@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var jasmine = require('gulp-jasmine');
 var reporters = require('jasmine-reporters');
+var jsdoc = require('gulp-doggy');
  
 gulp.task('test', function () {
     return gulp.src('spec/*-spec.js')
@@ -12,6 +13,10 @@ gulp.task('test', function () {
         }));
 });
 
+gulp.task("jsdoc", function(){
+  gulp.src(["./lib/*.js", "README.md"])
+  .pipe(jsdoc('./doc'))
+})
 
 gulp.task("watch", function(){
 	var watcher = gulp.watch('spec/*-spec.js', ['test']);
