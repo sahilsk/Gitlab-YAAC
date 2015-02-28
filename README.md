@@ -69,6 +69,8 @@ API
 
 ### GitLab API
 
+####  NOTE:  Not all resources are implemented yet. Only highlighted ones are currently implemented.
+
 #### Resources
 
 - [Users](http://doc.gitlab.com/ce/api/users.html)
@@ -87,10 +89,6 @@ API
 - Deploy Keys
 - System Hooks
 - Groups
-
-
-## Users#listUsers
-
 
 
 References
