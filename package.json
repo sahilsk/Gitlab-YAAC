@@ -29,8 +29,9 @@
     "superagent": "~0.21.0"
   },
   "devDependencies": {
-    "gulp-jasmine": "~2.0.0",
     "gulp": "~3.8.11",
+    "gulp-jasmine": "~2.0.0",
+    "jasmine": "^2.2.1",
     "jasmine-reporters": "~2.0.4"
   }
 }

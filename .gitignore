@@ -1,2 +1,3 @@
 node_modules
-specs/testConf.js
+spec/helpers/testConf.js
+junitresults.xml

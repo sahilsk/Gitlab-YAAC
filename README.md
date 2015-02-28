@@ -34,8 +34,8 @@ var gUsers = new Users({
 });
 
 /** List Users
-* params {Object} optn Option
-* params { Function} callback Callback
+* @params {Object} optn Option
+* @params { Function} callback Callback
 */
 gUsers.find(opts, function(err, response, results){
   if(err){
@@ -71,7 +71,7 @@ API
 
 #### Resources
 
-- Users
+- [Users](http://doc.gitlab.com/ce/api/users.html)
 - Session
 - Projects
 - Project Snippets
