@@ -64,11 +64,12 @@ API
 Currently implemented resources are:
 
 - Users
+- Session
 
 #### Resources
 
 - [Users](http://doc.gitlab.com/ce/api/users.html)
-- Session
+- [Session](http://doc.gitlab.com/ce/api/session.html)
 - Projects
 - Project Snippets
 - Repositories
