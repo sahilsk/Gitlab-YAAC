@@ -8,7 +8,7 @@ var existingUser = {};
 
 describe(" Users: user input check", function() {
   var gUsers = null;
-  gUsers = new Users( conf.gitlab );
+  gUsers = new Users( conf.gitrep );
 
   it("should not accept empty arguments ", function() {
      expect( function(){ gUsers.find(); } ).toThrow();
@@ -24,7 +24,7 @@ describe(" Users: fetch all users", function(){
   callback = jasmine.createSpy("callback");
  
   beforeAll( function(done){
-    gUsers = new Users( conf.gitlab );
+    gUsers = new Users( conf.gitrep );
     gUsers.find( function(err, res, result){
       callback(err, res, result);
       done();
@@ -63,7 +63,7 @@ describe("users - search by invalid input", function(){
   var callback = jasmine.createSpy("callback");
 
   beforeAll( function(done){
-    gUsers = new Users( conf.gitlab );
+    gUsers = new Users( conf.gitrep );
     gUsers.find("rDontMatchWithEmailOrUsername", function(err, res, result){
       callback(err, res, result);
       done();
@@ -85,8 +85,8 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
    "password" : "S3CR3TGoesHere" };
 
   var newKeyObj = { 
-     "key": "ssh-dss AAAAB3NzaC1kc3MAAACBAMLrhYgI3atfrSD6KDas1b/3n6R/HP+bLaHHX6oh+L1vg31mdUqK0Ac/NjZoQunavoyzqdPYhFz9zzOezCrZKjuJDS3NRK9rspvjgM0xYR4d47oNZbdZbwkI4cTv/gcMlquRy0OvpfIvJtjtaJWMwTLtM5VhRusRuUlpH99UUVeXAAAAFQCVyX+92hBEjInEKL0v13c/egDCTQAAAIEAvFdWGq0ccOPbw4f/F8LpZqvWDydAcpXHV3thwb7WkFfppvm4SZte0zds1FJ+Hr8Xzzc5zMHe6J4Nlay/rP4ewmIW7iFKNBEYb/yWa+ceLrs+TfR672TaAgO6o7iSRofEq5YLdwgrwkMmIawa21FrZ2D9SPao/IwvENzk/xcHu7YAAACAQFXQH6HQnxOrw4dqf0NqeKy1tfIPxYYUZhPJfo9O0AmBW2S36pD2l14kS89fvz6Y1g8gN/FwFnRncMzlLY/hX70FSc/3hKBSbH6C6j8hwlgFKfizav21eS358JJz93leOakJZnGb8XlWvz1UJbwCsnR2VEY8Dz90uIk1l/UqHkA= loic@call",
-      "title": "dummyKey"};
+       "key": "ssh-dss AAAAB3NzaC1kc3MAAACBAMLrhYgI3atfrSD6KDas1b/3n6R/HP+bLaHHX6oh+L1vg31mdUqK0Ac/NjZoQunavoyzqdPYhFz9zzOezCrZKjuJDS3NRK9rspvjgM0xYR4d47oNZbdZbwkI4cTv/gcMlquRy0OvpfIvJtjtaJWMwTLtM5VhRusRuUlpH99UUVeXAAAAFQCVyX+92hBEjInEKL0v13c/egDCTQAAAIEAvFdWGq0ccOPbw4f/F8LpZqvWDydAcpXHV3thwb7WkFfppvm4SZte0zds1FJ+SRofEq5YLdwgrwkMmIawa21Hr8Xzzc5zMHe6J4Nlay/rP4ewmIW7iFKNBEYb/yWa+ceLrs+TfR672TaAgO6o7iFrZ2D9SPao/IwvENzk/xcHu7YAAACAQFXQH6HQnxOrw4dqf0NqeKy1tfIPxYYUZhPJfo9O0AmBW2S36pD2l14kS89fvz6Y1g8gN/FwFnRncMzlLY/hX70FSc/3hKBSbH6C6j8hwlgFKfizav21eS358JJz93leOakJZnGb8XlWvz1UJbwCsnR2VEY8Dz90uIk1l/UqHkA= loicc@call",
+       "title": "dummSSHkey"};
 
   var gUsers = null;
   var callback = jasmine.createSpy("callback");
@@ -124,12 +124,10 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
 
     beforeAll( function(done){
       gUsers = new Users( conf.gitrep );
-      gUsers.find(function(err, res, result){
-         gUsers.find( newUser.id, function(err, res, result){
-          callback(err, res, result);
-          done();
-        });
-      })
+      gUsers.find( newUser.id, function(err, res, result){
+        callback(err, res, result);
+        done();
+      });
     });
     
     describe("- find user by id", function(){
@@ -148,7 +146,7 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
       var callback = jasmine.createSpy("callback");
 
       beforeAll( function(done){
-        gUsers = new Users( conf.gitlab );
+        gUsers = new Users( conf.gitrep );
         gUsers.find(newUser.email, function(err, res, result){
           callback(err, res, result);
           done();
@@ -158,7 +156,7 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
       it("- user should be found", function(done){
           expect( callback.calls.mostRecent().args[1]["statusCode"]).toEqual(200);
           expect( typeof callback.calls.mostRecent().args[2] ).toEqual("object");
-          expect( typeof callback.calls.mostRecent().args[2]["name"] ).toBeDefined();
+          expect(  callback.calls.mostRecent().args[2][0]["name"] ).toBeDefined();
           done();
       });
 
@@ -169,7 +167,7 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
       var callback = jasmine.createSpy("callback");
 
       beforeAll( function(done){
-        gUsers = new Users( conf.gitlab );
+        gUsers = new Users( conf.gitrep );
         gUsers.find(newUser.username, function(err, res, result){
           callback(err, res, result);
           done();
@@ -177,9 +175,10 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
       });
       
       it("- user should be found", function(done){
+          expect( callback.calls.mostRecent().args[0]).toBeNull();
           expect( callback.calls.mostRecent().args[1]["statusCode"]).toEqual(200);
           expect( typeof callback.calls.mostRecent().args[2] ).toEqual("object");
-          expect( typeof callback.calls.mostRecent().args[2]["name"] ).toBeDefined();
+          expect( callback.calls.mostRecent().args[2][0]["name"] ).toBe( newUser.name);
           done();
       });
 
@@ -191,12 +190,14 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
     var gUsers = null;
     var callback = jasmine.createSpy("callback");
 
-    var updatedUser = newUser;
+    var updatedUser = JSON.parse( JSON.stringify( newUser ) );
     updatedUser.name ="dummyChangedName";
     updatedUser.skype ="dummySkypeInfo";
 
     beforeAll( function(done){
       gUsers = new Users( conf.gitrep );
+      updatedUser.id = newUser.id;
+      console.log("updating user:xxxxxxxxxxxxxxxxx", updatedUser);
       gUsers.update(updatedUser.id, updatedUser, function(err, res, result){
         callback(err, res, result);
         done();
@@ -214,11 +215,9 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
 
   });
 
-  describe("- Add a new SSH keys", function(){
+  describe("- Add new SHH keys", function(){
     var gUsers = null;
-    var callback =null ;    
-    
-    callback = jasmine.createSpy("callback");
+    var callback  = jasmine.createSpy("callback");
    
     beforeAll( function(done){
       gUsers = new Users( conf.gitrep );
@@ -230,22 +229,18 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
     });
 
     it("- should add new key", function(){
-      var err = callback.calls.mostRecent().args[0]
-      var response = callback.calls.mostRecent().args[1]
-      
+      var err = callback.calls.mostRecent().args[0];
+      var response = callback.calls.mostRecent().args[1];      
       expect(err).toBeNull();
       expect(response.statusCode).toBe(201);
     });
 
   });
 
-  describe("- Get SSh keys.(if any)", function(){
-
+  describe("- Get SSH keys.(if any)", function(){
 
     var gUsers = null;
-    var callback =null ;
-    
-    callback = jasmine.createSpy("callback");
+    var callback = jasmine.createSpy("callback");
    
     beforeAll( function(done){
       gUsers = new Users( conf.gitrep );
@@ -263,10 +258,7 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
       expect(err).toBeNull();
       expect(response.statusCode).toBe(200);
       expect( typeof keys).toBe("object");
-    });
 
-    it("- should have key properties", function(){
-      var keys = callback.calls.mostRecent().args[2];
       if( keys.length > 0){
         expect( keys[0].id).toBeDefined();
         expect( keys[0].title).toBeDefined();
@@ -330,16 +322,14 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
 describe("Current User: ", function(){
   var newKeyObj = { 
        "key": "ssh-dss AAAAB3NzaC1kc3MAAACBAMLrhYgI3atfrSD6KDas1b/3n6R/HP+bLaHHX6oh+L1vg31mdUqK0Ac/NjZoQunavoyzqdPYhFz9zzOezCrZKjuJDS3NRK9rspvjgM0xYR4d47oNZbdZbwkI4cTv/gcMlquRy0OvpfIvJtjtaJWMwTLtM5VhRusRuUlpH99UUVeXAAAAFQCVyX+92hBEjInEKL0v13c/egDCTQAAAIEAvFdWGq0ccOPbw4f/F8LpZqvWDydAcpXHV3thwb7WkFfppvm4SZte0zds1FJ+Hr8Xzzc5zMHe6J4Nlay/rP4ewmIW7iFKNBEYb/yWa+ceLrs+TfR672TaAgO6o7iSRofEq5YLdwgrwkMmIawa21FrZ2D9SPao/IwvENzk/xcHu7YAAACAQFXQH6HQnxOrw4dqf0NqeKy1tfIPxYYUZhPJfo9O0AmBW2S36pD2l14kS89fvz6Y1g8gN/FwFnRncMzlLY/hX70FSc/3hKBSbH6C6j8hwlgFKfizav21eS358JJz93leOakJZnGb8XlWvz1UJbwCsnR2VEY8Dz90uIk1l/UqHkA= loic@call",
-        "title": "dummyKey"};
+       "title": "dummySSHkey"};
 
- 
+
   var gUsers = null;
-  var callback =null ;
-  
-  callback = jasmine.createSpy("callback");
+  var callback = jasmine.createSpy("callback");
  
   beforeAll( function(done){
-    gUsers = new Users( conf.gitlab );
+    gUsers = new Users( conf.gitrep );
     gUsers.current( function(err, res, result){
       callback(err, res, result);
       done();
@@ -355,7 +345,7 @@ describe("Current User: ", function(){
     expect( typeof user).toBe("object");
   })
 
-  describe("- Gets SSh keys.(if any)", function(){
+  describe("- Gets all SSH keys.(if any)", function(){
     var gUsers = null;
     var callback =null ;
     
@@ -389,15 +379,13 @@ describe("Current User: ", function(){
     });
   });  
 
-  describe("- Add a new SSH keys", function(){
+  describe("- Add SSH key", function(){
     var gUsers = null;
-    var callback =null ;    
-    
-    callback = jasmine.createSpy("callback");
+    var callback = jasmine.createSpy("callback");
    
     beforeAll( function(done){
       gUsers = new Users( conf.gitrep );
-      gUsers.addKey( newKeyObj, function(err, res, result){
+      gUsers.addKey( newKeyObj, function(err, res, result){        
         newKeyObj.id = result.id;
         callback(err, res, result);
         done();
@@ -414,11 +402,30 @@ describe("Current User: ", function(){
 
   });
 
-  describe("- Delete SSH keys", function(){
+  describe("- Fetch SSH key by id", function(){
     var gUsers = null;
-    var callback =null ;
+    var callback = jasmine.createSpy("callback");
+
+    beforeAll( function(done){
+      gUsers = new Users( conf.gitrep );
+      gUsers.getKey( newKeyObj.id , function(err, res, result){
+        callback(err, res, result);
+        done();
+      })
+    });
     
-    callback = jasmine.createSpy("callback");
+    it("- SSH key should be found", function(done){
+        expect( callback.calls.mostRecent().args[1]["statusCode"]).toEqual(200);
+        expect( typeof callback.calls.mostRecent().args[2] ).toEqual("object");
+        expect( callback.calls.mostRecent().args[2]["title"] ).toBe( newKeyObj.title);
+        done();
+    });
+
+  });    
+
+  describe("- Delete SSH key", function(){
+    var gUsers = null;
+    var callback = jasmine.createSpy("callback");
    
     beforeAll( function(done){
       gUsers = new Users( conf.gitrep );

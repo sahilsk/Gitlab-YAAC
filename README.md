@@ -33,17 +33,6 @@ var gUsers = new Users({
   admin: true
 });
 
-/** List Users
-* @params {Object} optn Option
-* @params { Function} callback Callback
-*/
-gUsers.find(opts, function(err, response, results){
-  if(err){
-    //handle error
-  }else{
-    console.log( result);
-  }
-});
 
 // find all users
 gUsers.find( function(err,response, results){})
@@ -63,13 +52,18 @@ gUsers.find(4, function(err, response,result){
 
 ```
 
+## Documentation: find it on [wiki](https://github.com/sahilsk/Gitlab-YAAC/wiki)
 
 API
 -------------
 
 ### GitLab API
 
-####  NOTE:  Not all resources are implemented yet. Only highlighted ones are currently implemented.
+>  Not all resources are implemented yet. Only highlighted ones are currently implemented.
+
+Currently implemented resources are:
+
+- Users
 
 #### Resources
 
