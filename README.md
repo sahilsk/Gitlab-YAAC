@@ -18,7 +18,7 @@ Features
 - asynchronous calls i.e no blocking
 - fetches server response as well
 - standard callback function argumnets:   `function( error, response, result){ ... } `
-- use what you need. eg. `require('gitlab-yaac/users'); ` and you'll get [users](http://doc.gitlab.com/ce/api/users.html) endpoints available only
+- use what you need. eg. `require('gitlab-yaac/users'); ` and you'll get [users](http://doc.gitlab.com/ce/api/users.html) resource available only
 
 Example
 -------------
@@ -52,7 +52,10 @@ gUsers.find(4, function(err, response,result){
 
 ```
 
-## Documentation: find it on [wiki](https://github.com/sahilsk/Gitlab-YAAC/wiki)
+Documentation
+-------------------
+
+find it on [wiki](https://github.com/sahilsk/Gitlab-YAAC/wiki)
 
 API
 -------------
