@@ -48,6 +48,11 @@ gUsers.find(4, function(err, response,result){
 }
 });
 
+// with pagination
+gUsers.find( {page: 1, per_page: 2}, function(err,res,result){...});
+// Or
+gUsers.find( "username/email", {page:1, per_page: 2}, function(err, res, result){...})
+
 ```
 
 Documentation
