@@ -2,8 +2,6 @@
 
 Gitlab api client with more control over server response
 
-> WORK-IN-PROGRESS: PLEASE DO NOT USE THIS UNFINISHED PROJECTT UNTIL YOU STOPPED SEEING THIS MESSAGE.
-
 
 Motivation
 -------------

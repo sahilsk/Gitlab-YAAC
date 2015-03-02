@@ -19,9 +19,7 @@ describe(" Users: user input check", function() {
 describe(" Users: fetch all users", function(){
 
   var gUsers = null;
-  var callback =null ;
-  
-  callback = jasmine.createSpy("callback");
+  var callback = jasmine.createSpy("callback");
  
   beforeAll( function(done){
     gUsers = new Users( conf.gitrep );
@@ -49,13 +47,55 @@ describe(" Users: fetch all users", function(){
      var result = callback.calls.mostRecent().args[2];
      expect( typeof result ).toEqual("object");
   });
-  it("- result object should have name field", function(){
-    var result = callback.calls.mostRecent().args[2];
-    expect( result.length ).toBeGreaterThan(0);
-    expect( typeof result[0]["name"] ).toEqual("string");
-    existingUser = result[0];
+
+  describe("- fetch users with pagination", function () {
+      var callback = jasmine.createSpy("callback");
+      beforeAll( function(done){
+        gUsers.find({ page: 0, per_page:1}, function(err, res, result){
+          callback(err, res, result);
+          done();
+        })
+      });
+
+      it("should return one user per page", function(){
+        expect( callback.calls.mostRecent().args[0]).toBeNull() ;
+        expect( callback.calls.mostRecent().args[1]['statusCode']).toBe(200) ;
+        expect(callback.calls.mostRecent().args[2].length).toBe(1);
+      })
   });
      
+  describe("- fetch user by id", function () {
+      var callback = jasmine.createSpy("callback");
+      beforeAll( function(done){
+        gUsers.find( 1, { page: 122, per_page:1}, function(err, res, result){
+          callback(err, res, result);
+          done();
+        })
+      });
+
+      it("should return one user per page", function(){
+        expect( callback.calls.mostRecent().args[0]).toBeNull() ;
+        expect( callback.calls.mostRecent().args[1]['statusCode']).toBe(200) ;
+        expect( typeof callback.calls.mostRecent().args[2]).toBe("object");
+      })
+  }); 
+  describe("- search users by username/email", function () {
+      var callback = jasmine.createSpy("callback");
+      beforeAll( function(done){
+        gUsers.find( "root", { page: 23, per_page:1}, function(err, res, result){
+          console.log( result);
+          callback(err, res, result);
+          done();
+        })
+      });
+
+      it("should return user with username: root", function(){
+        expect( callback.calls.mostRecent().args[0]).toBeNull() ;
+        expect( callback.calls.mostRecent().args[1]['statusCode']).toBe(200) ;
+        //expect( callback.calls.mostRecent().args[2]).toBe();
+      })
+  });      
+
 });
 
 describe("users - search by invalid input", function(){
@@ -71,6 +111,7 @@ describe("users - search by invalid input", function(){
   });
   
   it("- user should not be found", function(done){
+      expect(callback.calls.mostRecent().args[0]).toBeNull();
       expect( callback.calls.mostRecent().args[1]["statusCode"]).toEqual(200);
       expect( callback.calls.mostRecent().args[2].length ).toBe(0);
       done();
@@ -197,7 +238,6 @@ describe("users: CREATE, READ, UPDATE, DELETE", function(){
     beforeAll( function(done){
       gUsers = new Users( conf.gitrep );
       updatedUser.id = newUser.id;
-      console.log("updating user:xxxxxxxxxxxxxxxxx", updatedUser);
       gUsers.update(updatedUser.id, updatedUser, function(err, res, result){
         callback(err, res, result);
         done();
