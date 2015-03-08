@@ -71,12 +71,13 @@ Currently implemented resources are:
 
 - Users
 - Session
+- Projects
 
 #### Resources
 
 - [Users](http://doc.gitlab.com/ce/api/users.html)
 - [Session](http://doc.gitlab.com/ce/api/session.html)
-- Projects
+- [Projects](http://doc.gitlab.com/ce/api/projects.html)
 - Project Snippets
 - Repositories
 - Repository Files
