@@ -18,6 +18,14 @@ Features
 - standard callback function argumnets:   `function( error, response, result){ ... } `
 - use what you need. eg. `require('gitlab-yaac/users'); ` and you'll get [users](http://doc.gitlab.com/ce/api/users.html) resource available only
 
+
+Installation
+----------------
+
+	
+	npm install gitlab-yaac
+
+
 Example
 -------------
 
@@ -103,3 +111,10 @@ Roadmap
 -----------
 
 - TLS/SSL Protocol support
+- add more resources
+
+
+License
+----------
+
+MIT
