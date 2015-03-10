@@ -1,6 +1,6 @@
 {
   "name": "Gitlab-YAAC",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Gitlab api client",
   "main": "Gitlab.js",
   "scripts": {
