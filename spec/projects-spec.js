@@ -1,5 +1,5 @@
 var 
-	Projects =  require("../lib/projects")
+	Projects =  require("../projects")
   , conf = require("./helpers/testConf")
 	;
 

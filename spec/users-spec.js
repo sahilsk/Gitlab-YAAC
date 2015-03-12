@@ -1,5 +1,5 @@
 var 
-	Users =  require("../lib/users")
+	Users =  require("../users")
   , conf = require("./helpers/testConf")
 	;
 

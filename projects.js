@@ -9,8 +9,8 @@
 
 var 
 	defaults = require("101/defaults")
-    , utils  = require("./_utils.js")
-    , Agent  = require("./_agent.js")
+    , utils  = require("./lib/_utils.js")
+    , Agent  = require("./lib/_agent.js")
     , debug = require("debug")("projects")
     , Qs = require('qs')
 

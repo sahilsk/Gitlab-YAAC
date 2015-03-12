@@ -1,5 +1,5 @@
 var 
-	Session =  require("../lib/session")
+	Session =  require("../session")
   , conf = require("./helpers/testConf")
 	;
 
